@@ -12,12 +12,25 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="solidity-track-styles.css" />
     <style>
+      
       /* New UI Top Header */
+      :root {
+        --border-color: #A9A491;
+        --text-primary: #1A1A1A;
+        --text-secondary: #555;
+        --accent: #232220;
+        --bg-color: #EAE6DD;
+        --grid-color: rgba(0,0,0,0.06);
+      }
       body[data-page="solidity"] {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         height: 100vh;
         overflow: hidden;
+        margin: 0;
+        font-family: "Inter", sans-serif;
       }
       
       body[data-page="solidity"] .app-shell.remix-layout {
@@ -26,132 +39,218 @@
         min-height: 0;
       }
 
-      .new-header {
+      .header {
+        display: grid;
+        grid-template-columns: 240px 1fr auto 240px;
         height: 60px;
-        background-color: #E2DDD5;
-        border-bottom: 1px solid #C2BCAE;
-        display: flex;
-        justify-content: space-between;
-        font-family: 'Inter', sans-serif;
-        color: #000;
-        box-sizing: border-box;
-      }
-
-      .new-header .left-section {
-        display: flex;
+        border-bottom: 1px solid var(--border-color);
+        background: rgba(244, 242, 235, 0.6);
+        backdrop-filter: blur(4px);
         align-items: stretch;
+        color: var(--text-primary) !important; /* Force override body !important color */
       }
 
-      .new-header .brand {
+      .brand {
+        font-weight: 900;
+        font-size: 18px;
+        letter-spacing: -0.03em;
         display: flex;
         align-items: center;
-        padding: 0 20px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        font-size: 16px;
-        border-right: 1px solid #C2BCAE;
+        padding: 0 24px;
+        border-right: 1px solid var(--border-color);
+        background: #F4F2EB;
+        text-transform: uppercase;
+        color: var(--text-primary) !important;
       }
 
-      .new-header .nav-item {
+      .nav {
         display: flex;
         align-items: center;
-        padding: 0 20px;
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: #000;
-        letter-spacing: 0.05em;
-        border-right: 1px solid #C2BCAE;
-        transition: background-color 0.2s;
+        padding: 0;
       }
 
-      .new-header .nav-item:hover {
-        background-color: rgba(0,0,0,0.05);
-      }
-
-      /* Active state on Challenges in homepage, but Solidity Track is active here */
-      .new-header .nav-item.active {
-        background-color: #1A1A1A;
-        color: #FFF;
-      }
-
-      .new-header .right-section {
-        display: flex;
-        align-items: stretch;
-      }
-
-      .new-header .wallet-box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 15px;
-        border-left: 1px solid #C2BCAE;
-        border-right: 1px solid #C2BCAE;
-        margin-right: -1px;
-      }
-
-      .new-header .rewards-box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 15px;
-        border-right: 1px solid #C2BCAE;
-      }
-
-      .new-header .top-label {
-        font-size: 9px;
-        color: #666;
-        text-transform: uppercase;
-        margin-bottom: 2px;
-      }
-
-      .new-header .bottom-value {
-        font-size: 13px;
+      .nav-item {
+        font-size: 10px;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0 20px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        color: var(--text-primary) !important;
+        text-decoration: none;
       }
 
-      .new-header .withdraw-btn {
-        background: transparent;
-        border: none;
-        border-left: 1px solid #C2BCAE;
-        padding: 0 20px;
-        font-size: 11px;
-        font-weight: 600;
-        cursor: pointer;
-        text-transform: uppercase;
-        color: #000;
+      .nav-item.active {
+        background: var(--text-primary) !important;
+        color: #FFF !important;
       }
-      .new-header .withdraw-btn:hover {
-        background-color: rgba(0,0,0,0.05);
+
+      .wallet-info {
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
+        padding: 0 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        justify-content: center;
+        font-size: 9px;
+        text-transform: uppercase;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text-secondary) !important;
+        background: #F4F2EB;
+      }
+
+      .wallet-info .status { color: var(--text-primary) !important; }
+
+      .rewards-info {
+        display: flex;
+        align-items: stretch;
+        background: #F4F2EB;
+      }
+
+      .rewards-box {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .rewards-box .circle {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #FFD194, #70E1F5);
+      }
+
+      .rewards-text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .rewards-text .label { font-size: 8px; font-weight: 700; color: var(--text-secondary) !important; letter-spacing: 0.05em; }
+      .rewards-text .value { font-size: 13px; font-weight: 800; color: var(--text-primary) !important; }
+
+      .withdraw-btn {
+        border: 1px solid var(--border-color);
+        background: transparent;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--text-secondary) !important;
+        padding: 6px 12px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-left: 24px;
+        transition: all 0.2s;
+      }
+      .withdraw-btn:hover { background: var(--text-primary) !important; color: #fff !important; }
+
+      .fox-icon {
+        background: var(--text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .fox-icon svg { width: 32px; height: 32px; }
+</style>
+  
+    
+
+    <!-- CUSTOM HEADER OVERRIDES -->
+    <style>
+      #customNavHeader {
+        background: rgba(244, 242, 235, 0.6) !important;
+        border-bottom: 1px solid #A9A491 !important;
+        border-top: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .brand {
+        background: #F4F2EB !important;
+        color: #1A1A1A !important;
+        border-right: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .nav-item {
+        color: #1A1A1A !important;
+      }
+      #customNavHeader .nav-item.active {
+        background: #1A1A1A !important;
+        color: #FFF !important;
+      }
+      #customNavHeader .wallet-info {
+        background: #F4F2EB !important;
+        color: #555 !important;
+        border-left: 1px solid #A9A491 !important;
+        border-right: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .wallet-info .status {
+        color: #1A1A1A !important;
+      }
+      #customNavHeader .rewards-info {
+        background: #F4F2EB !important;
+      }
+      #customNavHeader .rewards-text .label {
+        color: #555 !important;
+      }
+      #customNavHeader .rewards-text .value {
+        color: #1A1A1A !important;
+      }
+      #customNavHeader .withdraw-btn {
+        color: #555 !important;
+        border: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .withdraw-btn:hover {
+        background: #1A1A1A !important;
+        color: #FFF !important;
       }
     </style>
-  </head>
+    <!-- /CUSTOM HEADER OVERRIDES -->
+</head>
   <body data-page="solidity">
     <canvas id="confettiCanvas" aria-hidden="true" style="pointer-events:none; position:absolute; z-index:9999;"></canvas>
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
     <!-- NEW NAVIGATION HEADER -->
-    <header class="new-header top-header" id="customNavHeader">
-      <div class="left-section">
-        <div class="brand">PROOFOFSKILL</div>
-        <a class="nav-item" href="index.html">CHALLENGES</a>
-        <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
-        <a class="nav-item active" href="solidity-track.html">SOLIDITY TRACK</a>
-        <a class="nav-item" href="#">LEADERBOARD</a>
+    <header class="header" id="customNavHeader">
+      <div class="brand">PROOFOFSKILL</div>
+      
+      <div class="nav">
+        <div class="nav-item" onclick="location.href='index.html'">CHALLENGES</div>
+        <div class="nav-item" onclick="location.href='puzzle-lab.html'">PUZZLE LAB</div>
+        <div class="nav-item active" onclick="location.href='solidity-track.html'">SOLIDITY TRACK</div>
+        <div class="nav-item">LEADERBOARD</div>
       </div>
-      <div class="right-section wallet-strip">
-        <div class="wallet-box" style="cursor:pointer;" id="connectWalletButton" data-home-wallet="true">
-          <div class="top-label">WALLET <span id="walletStateLabel" style="color:inherit">OFFLINE</span></div>
-          <div class="bottom-value" id="accountValue">NOT CONNECTED</div>
+
+      <div class="wallet-info" style="cursor:pointer;" id="connectWalletButton" data-home-wallet="true">
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:flex-start;">
+          <div class="status">WALLET <span id="walletStateLabel" style="color:inherit">OFFLINE</span></div>
+          <div class="meta" id="accountValue">NOT CONNECTED</div>
         </div>
+
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:28px; height:28px; flex-shrink:0;">
+        <path d="M16 8L20 14L28 10L24 24H8L4 10L12 14L16 8Z" fill="#F6851B" stroke="#E2761B" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 14L16 20L20 14L16 8L12 14Z" fill="#E2761B"/>
+        <path d="M8 24L12 14L16 20L8 24Z" fill="#E2761B"/>
+        <path d="M24 24L20 14L16 20L24 24Z" fill="#E2761B"/>
+      </svg>
+      </div>
+
+      <div class="rewards-info">
         <div class="rewards-box">
-          <div class="top-label">REWARDS</div>
-          <div class="bottom-value"><span id="rewardTotal">0.000</span> ETH</div>
-          <div id="rewardDelta" style="display:none;"></div>
+          <div class="circle"></div>
+          <div class="rewards-text">
+            <div class="label">REWARDS</div>
+            <div class="value"><span id="rewardTotal">0.000</span> ETH</div>
+            <div id="rewardDelta" style="display:none;"></div>
+          </div>
+          <button class="withdraw-btn" id="withdrawRewardsButton">WITHDRAW</button>
         </div>
-        <button class="withdraw-btn" id="withdrawRewardsButton">WITHDRAW</button>
       </div>
+
+      
     </header>
 
     <div class="app-shell remix-layout">

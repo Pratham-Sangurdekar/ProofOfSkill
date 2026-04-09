@@ -1,420 +1,727 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProofOfSkill — Challenges</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-      /* 
-       * NEW EXACT HOMEPAGE STYLES 
-       * Matches the provided beige grid layout
-       */
-      body[data-page="index"] {
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', -apple-system, sans-serif;
-        background-color: #E2DDD5;
-        color: #1A1A1A;
-        /* Grid background pattern */
-        background-image: 
-          linear-gradient(rgba(194, 188, 174, 0.3) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(194, 188, 174, 0.3) 1px, transparent 1px);
-        background-size: 20px 20px;
-        min-height: 100vh;
-      }
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ProofOfSkill — Challenges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-color: #EAE6DD;
+    --grid-color: rgba(0,0,0,0.06);
+    --border-color: #A9A491;
+    --text-primary: #1A1A1A;
+    --text-secondary: #555;
+    --accent: #232220;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    background-image: 
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: center top;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
 
-      /* Top Header */
-      .new-header {
-        height: 60px;
-        background-color: transparent;
-        border-bottom: 1px solid #C2BCAE;
-        display: flex;
+  .container {
+    width: 100%;
+    /* max-width: 1200px; removed to span across the width */
+    padding: 0 40px; /* added sufficient left and right padding */
+    box-sizing: border-box;
+    /* removed black bounding lines */
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+        align-items: center;
         justify-content: space-between;
-        color: #1A1A1A;
-        box-sizing: border-box;
-      }
+    position: relative;
+    /* box-shadow removed as per full width */
+  }
 
-      .new-header .left-section {
-        display: flex;
-        align-items: stretch;
-      }
+  /* TOP HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 240px 1fr auto 240px;
+    height: 60px;
+    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    background: rgba(244, 242, 235, 0.6);
+    backdrop-filter: blur(4px);
+    align-items: stretch;
+  }
 
-      .new-header .brand {
-        display: flex;
+  .brand {
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    border-right: 1px solid var(--border-color);
+    background: #F4F2EB;
+    text-transform: uppercase;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    padding: 0;
+  }
+
+  .nav-item {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .nav-item.active {
+    background: var(--text-primary);
+    color: #FFF;
+  }
+
+  .wallet-info {
+    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
         align-items: center;
-        padding: 0 20px;
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        font-size: 16px;
-        border-right: 1px solid #C2BCAE;
-        background-color: transparent;
-      }
+        justify-content: space-between;
+    justify-content: center;
+    font-size: 9px;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    background: #F4F2EB;
+  }
 
-      .new-header .nav-item {
-        display: flex;
+  .wallet-info .status { color: var(--text-primary); }
+
+  .rewards-info {
+    display: flex;
+    align-items: stretch;
+    background: #F4F2EB;
+  }
+
+  .rewards-box {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rewards-box .circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD194, #70E1F5);
+  }
+
+  .rewards-text {
+    display: flex;
+    flex-direction: row;
         align-items: center;
-        padding: 0 20px;
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: #1A1A1A;
-        letter-spacing: 0.05em;
-        border-right: 1px solid #C2BCAE;
-        transition: background-color 0.2s;
-        background-color: transparent;
-      }
+        justify-content: space-between;
+  }
+  .rewards-text .label { font-size: 8px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; }
+  .rewards-text .value { font-size: 13px; font-weight: 800; color: var(--text-primary); }
 
-      .new-header .nav-item:hover {
-        background-color: rgba(0,0,0,0.05);
-      }
+  .withdraw-btn {
+    border: 1px solid var(--border-color);
+    background: transparent;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-left: 24px;
+    transition: all 0.2s;
+  }
+  .withdraw-btn:hover { background: var(--text-primary); color: #fff; }
 
-      .new-header .nav-item.active {
-        background-color: #1A1A1A;
-        color: #FFF;
-      }
+  .fox-icon {
+    background: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fox-icon svg { width: 32px; height: 32px; }
 
-      .new-header .right-section {
-        display: flex;
-        align-items: stretch;
-      }
+  /* HERO SECTION */
+  .hero {
+    display: flex;
+    padding: 60px 40px;
+    border-bottom: 1px solid var(--border-color);
+    gap: 60px;
+    background: transparent;
+  }
 
-      .new-header .wallet-box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 15px;
-        border-left: 1px solid #C2BCAE;
-        border-right: 1px solid #C2BCAE;
-        margin-right: -1px;
-        background-color: #FFF; /* Distinct white bg matching screenshot */
-      }
-
-      .new-header .rewards-box {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 15px;
-        border-right: 1px solid #C2BCAE;
-      }
-
-      .new-header .top-label {
-        font-size: 9px;
-        color: #666;
-        text-transform: uppercase;
-        margin-bottom: 2px;
-      }
-
-      .new-header .bottom-value {
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      .new-header .withdraw-btn {
-        background: transparent;
-        border: none;
-        border-left: 1px solid #C2BCAE;
-        padding: 0 20px;
-        font-size: 11px;
-        font-weight: 600;
-        cursor: pointer;
-        text-transform: uppercase;
-        color: #1A1A1A;
-      }
-      
-      .new-header .withdraw-btn:hover {
-        background-color: rgba(0,0,0,0.05);
-      }
-
-      /* Main layout wrapper */
-      .layout-container {
-        padding: 0;
-        max-width: 1440px;
-        margin: 0 auto;
-        border-left: 1px solid #C2BCAE;
-        border-right: 1px solid #C2BCAE;
-        min-height: 100vh;
-        background-color: transparent;
-      }
-
-      /* Hero Section */
-      .hero-section {
-        padding: 40px 20px;
-        background-color: #D6D1C4; /* slightly darker beige block */
-        border-bottom: 1px solid #C2BCAE;
-        margin-bottom: 20px;
-      }
-
-      .hero-section .kicker {
-        font-size: 10px;
-        font-weight: 600;
-        color: #555;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 24px;
-      }
-
-      .hero-section h1 {
-        font-size: 48px;
-        font-weight: 800;
-        line-height: 1.1;
-        margin: 0 0 24px 0;
-        letter-spacing: -0.03em;
-        max-width: 600px;
-      }
-
-      .hero-section .description {
-        font-size: 14px;
-        line-height: 1.6;
-        max-width: 800px;
-        margin-bottom: 32px;
-      }
-
-      /* Stats Block in Hero */
-      .hero-stats {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.5;
-        text-transform: uppercase;
-      }
-      .hero-stats .stat-row {
-        display: flex;
+  .hero-left {
+    flex: 6.5;
+    display: flex;
+    flex-direction: row;
         align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-      .hero-stats .stat-item {
-        display: flex;
+        justify-content: space-between;
+  }
+
+  .kicker {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-size: 92px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 0 0 32px 0;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn-dark {
+    background: var(--accent);
+    color: #FFF;
+    border: none;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: row;
         align-items: center;
-      }
-      .hero-stats .stat-item span {
-        font-weight: 400;
-        color: #555;
-        margin-right: 6px;
-      }
-      .hero-stats strong {
-        font-weight: 800;
-        color: #1A1A1A;
-      }
+        justify-content: space-between;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 180px;
+    text-decoration: none;
+  }
+  .btn-dark:hover { background: #000; }
+  .btn-dark .num { font-size: 9px; color: #888; margin-bottom: 6px; letter-spacing: 0.1em; }
+  .btn-dark .text { font-size: 13px; font-weight: 700; }
 
-      /* Middle Info Strip */
-      .info-strip {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        padding: 20px 20px;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-      .info-strip .label {
-        font-weight: 400;
-        color: #555;
-        margin-right: 4px;
-      }
-      .info-strip .val {
-        font-weight: 800;
-      }
-      
-      .reward-flow {
-        padding: 0 20px;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 12px;
-      }
-      .reward-flow .label {
-        font-weight: 400;
-        color: #555;
-        margin-right: 4px;
-      }
+  .hero-right {
+    flex: 3.5;
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+  }
 
-      /* Dark Cards Section */
-      .cards-section {
-        padding: 0 20px 40px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
+  .info-box {
+    background: #FFF;
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    justify-content: center;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.03);
+  }
+  .info-box.bg-f4 { background: rgba(244,242,235,0.7); backdrop-filter: blur(4px); }
+  .info-box .label { font-size: 9px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; margin-bottom: 8px; text-transform: uppercase; }
+  .info-box .value { font-size: 14px; font-weight: 800; color: var(--text-primary); }
 
-      .dark-card {
-        background-color: #161616;
-        color: #FFF;
-        border-radius: 8px;
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        text-decoration: none;
-        transition: transform 0.2s, background-color 0.2s;
-        border: 1px solid #333;
-      }
+  /* SVG LANDSCAPE */
+  .landscape {
+    height: 240px;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    overflow: hidden;
+  }
+  .landscape svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .sticker-wrapper {
+    position: absolute;
+    right: 180px;
+    top: 30px;
+    transform: rotate(-8deg);
+  }
+  /* Drawing sticker from shapes to get exact match */
+  .sticker {
+    background: #EBECE4;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 4px 12px 30px rgba(0,0,0,0.15), -2px -2px 10px rgba(255,255,255,0.8) inset;
+    width: 160px;
+    height: 190px;
+    position: relative;
+    padding: 24px;
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    justify-content: center;
+    gap: 10px;
+    transform-style: preserve-3d;
+  }
+  .sticker-badge {
+    background: #111;
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 900;
+    padding: 6px 12px;
+    align-self: flex-start;
+    letter-spacing: 0.1em;
+    transform: rotate(-3deg);
+  }
+  .sticker-badge:nth-child(2) { transform: rotate(1deg); margin-left: 10px; }
+  .sticker-badge:nth-child(3) { transform: rotate(-2deg); margin-left: 20px; }
 
-      .dark-card:hover {
-        background-color: #222;
-        transform: translateY(-2px);
-      }
+  /* SUB GRID */
+  .sub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(244,242,235,0.6);
+  }
+  .sub-grid-item {
+    padding: 20px 24px;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    gap: 8px;
+  }
+  .sub-grid-item:last-child { border-right: none; }
+  .sub-grid-item .label { font-size: 9px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; }
+  .sub-grid-item .value { font-size: 13px; font-weight: 800; color: var(--text-primary); }
 
-      .dark-card .card-number {
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #888;
-        margin-bottom: 16px;
-      }
+  /* BOTTOM CARDS */
+  .bottom-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    min-height: 400px;
+  }
+  .card-col {
+    border-right: 1px solid var(--border-color);
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    box-sizing: border-box;
+  }
+  .card-col:last-child { border-right: none; }
+  
+  .card-dark {
+    background: #36322F; /* exact dark brownish hue from screenshot */
+    color: #FFF;
+    padding: 40px;
+    height: 100%;
+  }
+  
+  .card-beige {
+    padding: 40px;
+    height: 100%;
+  }
 
-      .dark-card h2 {
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1.2;
-        margin: 0 0 16px 0;
-        letter-spacing: -0.02em;
-        max-width: 400px;
-      }
+  .card-col .num { font-size: 9px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; margin-bottom: 40px; text-transform: uppercase; }
+  .card-dark .num { color: #A09C96; }
 
-      .dark-card p {
-        font-size: 12px;
-        line-height: 1.5;
-        color: #AAA;
-        margin: 0;
-        max-width: 600px;
+  .card-col h2 { font-size: 42px; font-weight: 900; line-height: 0.95; letter-spacing: -0.04em; margin: 0 0 24px 0; }
+  .card-col p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; max-width: 280px; }
+  .card-dark p { color: #D0CCC5; }
+
+  /* Learner state styling */
+  .card-state {
+    background: #F7F5F0;
+    border: 1px solid var(--border-color);
+    margin: 20px;
+    padding: 30px;
+    height: calc(100% - 40px);
+    box-sizing: border-box;
+  }
+  .card-state h2 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: var(--accent); }
+  
+  .state-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+  .state-val {
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    gap: 8px;
+  }
+  .state-val .label { font-size: 8px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
+  .state-val .value { font-size: 14px; font-weight: 800; color: var(--text-primary); }
+  
+  .state-bottom {
+    background: #EAE8E1;
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    gap: 16px;
+  }
+  .state-row {
+    display: flex;
+    flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    gap: 6px;
+  }
+  .state-row .label { font-size: 9px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
+  .state-row .value { font-size: 13px; font-weight: 800; color: var(--text-primary); }
+
+  .hidden-logic { display: none !important; }
+
+  /* Toast Notification Styles */
+  .toast-container {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 2000;
+    display: grid;
+    gap: 8px;
+    font-family: inherit;
+  }
+  
+  .toast {
+    min-width: 250px;
+    max-width: 360px;
+    background: var(--text-primary);
+    color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 13px;
+    animation: toastIn 0.24s ease forwards, toastOut 0.3s ease forwards 3s;
+  }
+  
+  .toast strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .toast.success {
+    border-left: 4px solid #0f8b5f;
+  }
+  
+  .toast.warn {
+    border-left: 4px solid #d97706;
+  }
+  
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes toastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(24px); }
+  }
+</style>
+
+    
+
+    <!-- CUSTOM HEADER OVERRIDES -->
+    <style>
+      #customNavHeader {
+        background: rgba(244, 242, 235, 0.6) !important;
+        border-bottom: 1px solid #A9A491 !important;
+        border-top: 1px solid #A9A491 !important;
       }
-      
-      .dark-card .stat {
-        font-size: 14px;
-        font-weight: 800;
-        margin-top: 10px;
+      #customNavHeader .brand {
+        background: #F4F2EB !important;
+        color: #1A1A1A !important;
+        border-right: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .nav-item {
+        color: #1A1A1A !important;
+      }
+      #customNavHeader .nav-item.active {
+        background: #1A1A1A !important;
+        color: #FFF !important;
+      }
+      #customNavHeader .wallet-info {
+        background: #F4F2EB !important;
+        color: #555 !important;
+        border-left: 1px solid #A9A491 !important;
+        border-right: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .wallet-info .status {
+        color: #1A1A1A !important;
+      }
+      #customNavHeader .rewards-info {
+        background: #F4F2EB !important;
+      }
+      #customNavHeader .rewards-text .label {
+        color: #555 !important;
+      }
+      #customNavHeader .rewards-text .value {
+        color: #1A1A1A !important;
+      }
+      #customNavHeader .withdraw-btn {
+        color: #555 !important;
+        border: 1px solid #A9A491 !important;
+      }
+      #customNavHeader .withdraw-btn:hover {
+        background: #1A1A1A !important;
+        color: #FFF !important;
       }
     </style>
-  </head>
-  <body data-page="index">
-    <canvas id="confettiCanvas" aria-hidden="true" style="pointer-events:none; position:absolute; z-index:9999;"></canvas>
-    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+    <!-- /CUSTOM HEADER OVERRIDES -->
+</head>
+<body data-page="index">
+<canvas id="confettiCanvas" aria-hidden="true" style="pointer-events:none; position:absolute; z-index:9999;"></canvas>
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-    <!-- Main Layout Container -->
-    <div class="layout-container">
+<div class="container">
+  
+  <header class="header" id="customNavHeader">
+    <div class="brand">PROOFOFSKILL</div>
+    
+    <div class="nav">
+      <div class="nav-item active">CHALLENGES</div>
+      <div class="nav-item" onclick="location.href='puzzle-lab.html'">PUZZLE LAB</div>
+      <div class="nav-item" onclick="location.href='solidity-track.html'">SOLIDITY TRACK</div>
+      <div class="nav-item">LEADERBOARD</div>
+    </div>
+
+    <div class="wallet-info" style="cursor:pointer;" id="connectWalletButton" data-home-wallet="true">
+        <div style="display:flex; flex-direction:column; justify-content:center; align-items:flex-start;">
+          <div class="status">WALLET <span id="walletStateLabel" style="color:inherit">OFFLINE</span></div>
+          <div class="meta">METAMASK READY</div>
+        </div>
+
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:28px; height:28px; flex-shrink:0;">
+        <path d="M16 8L20 14L28 10L24 24H8L4 10L12 14L16 8Z" fill="#F6851B" stroke="#E2761B" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M12 14L16 20L20 14L16 8L12 14Z" fill="#E2761B"/>
+        <path d="M8 24L12 14L16 20L8 24Z" fill="#E2761B"/>
+        <path d="M24 24L20 14L16 20L24 24Z" fill="#E2761B"/>
+      </svg>
+      </div>
+
+    <div class="rewards-info">
+      <div class="rewards-box">
+        <div class="circle"></div>
+        <div class="rewards-text">
+          <div class="label">REWARDS</div>
+          <div class="value"><span id="rewardTotal">0.000</span> ETH</div>
+          <div id="rewardDelta" style="display:none;"></div>
+        </div>
+        <button class="withdraw-btn" id="withdrawRewardsButton">WITHDRAW</button>
+      </div>
+    </div>
+
+    
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="kicker">WEB3 LEARNING / SOLIDITY + PUZZLES / EARN BY DOING</div>
+      <h1 class="hero-title">Learn Web3 by<br>solving real<br>challenges.</h1>
+      <p class="hero-desc">Practice Solidity, solve timed puzzles, and track progress with a wallet-connected profile. The goal is simple: clear tasks, useful feedback, and rewards for completed work.</p>
       
-      <!-- Top Header inside the boxed layout constraint -->
-      <header class="new-header top-header" id="customNavHeader">
-        <div class="left-section">
-          <div class="brand">PROOFOFSKILL</div>
-          <a class="nav-item active" href="index.html">CHALLENGES</a>
-          <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
-          <a class="nav-item" href="solidity-track.html">SOLIDITY TRACK</a>
-          <a class="nav-item" href="#">LEADERBOARD</a>
-        </div>
-        <div class="right-section wallet-strip">
-        <div class="wallet-box" style="cursor:pointer;" id="connectWalletButton" data-home-wallet="true">
-            <div class="top-label">WALLET <span id="walletStateLabel" style="color:inherit">OFFLINE</span></div>
-            <div class="bottom-value" id="accountValue">NOT CONNECTED</div>
-          </div>
-          <div class="rewards-box">
-            <div class="top-label">REWARDS</div>
-            <div class="bottom-value"><span id="rewardTotal">0.000</span> ETH</div>
-            <div id="rewardDelta" style="display:none;"></div>
-          </div>
-          <button class="withdraw-btn" id="withdrawRewardsButton">WITHDRAW</button>
-        </div>
-      </header>
-
-      <!-- Solid Beige Hero Block -->
-      <div class="hero-section">
-        <div class="kicker">WEB3 LEARNING / SOLIDITY + PUZZLES / EARN BY DOING</div>
-        
-        <h1>Learn Web3 by<br>solving real<br>challenges.</h1>
-        
-        <div class="description">
-          Practice Solidity, solve timed puzzles, and track progress with a wallet-connected profile. The goal is simple: clear tasks, useful feedback, and rewards for completed work.
-        </div>
-        
-        <div class="hero-stats">
-          <div class="stat-row">
-            <div class="stat-item"><span>01 / CODE</span> <strong>Open Solidity Track</strong></div>
-            <div class="stat-item" style="margin-left: 12px;"><span>02 / REASONING</span> <strong>Enter Puzzle Lab</strong></div>
-          </div>
-          <div class="stat-row"><div class="stat-item"><span>SYSTEM TIME</span> <strong id="systemTimeLabel">Apr 09, 2026, 07:31:31 AM</strong></div></div>
-          <div class="stat-row"><div class="stat-item"><span>WALLET SESSION</span> <strong id="walletSessionLabel">None</strong></div></div>
-          <div class="stat-row"><div class="stat-item"><span>ACTIVE LEARNERS</span> <strong>1,248</strong></div></div>
-          <div class="stat-row"><div class="stat-item"><span>WEEKLY REWARDS</span> <strong>18.4 ETH</strong></div></div>
-          <div class="stat-row"><div class="stat-item"><span>HIRING SIGNAL</span> <strong>Verifiable output</strong></div></div>
-          <div class="stat-row"><div class="stat-item"><span>SKILL PROOF</span> <strong>REWARD</strong></div></div>
-        </div>
-      </div>
-
-      <div class="info-strip">
-        <div><span class="label">LATEST CODING CHALLENGE</span> <span class="val">Escrow payout contract</span></div>
-        <div><span class="label">PUZZLE FORMAT</span> <span class="val">Beginner-friendly hash mining</span></div>
-      </div>
-
-      <div class="reward-flow">
-        <span class="label">REWARD FLOW</span> <span class="val">Finish tasks to unlock payouts</span>
-      </div>
-
-      <!-- Dark Cards / Entry points -->
-      <div class="cards-section">
-        <a href="solidity-track.html" class="dark-card">
-          <div class="card-number">01 / SOLIDITY TRACK</div>
-          <h2>Write, test, and<br>improve a<br>Solidity<br>challenge.</h2>
-          <p>Open a focused coding lab with the editor, test cases, console output, and progress tracking in one place.</p>
+      <div class="action-buttons">
+        <a href="solidity-track.html" class="btn-dark">
+          <span class="num">01 / CODE</span>
+          <span class="text">Open Solidity Track</span>
         </a>
-
-        <a href="puzzle-lab.html" class="dark-card">
-          <div class="card-number">02 / PUZZLE LAB</div>
-          <h2>Mine a valid<br>hash and learn<br>proof-of-work.</h2>
-          <p>Try nonce values, watch the SHA256 output change live, and solve the puzzle when the hash starts with the required zeros.</p>
+        <a href="puzzle-lab.html" class="btn-dark">
+          <span class="num">02 / REASONING</span>
+          <span class="text">Enter Puzzle Lab</span>
         </a>
+      </div>
+    </div>
+    
+    <div class="hero-right">
+      <div class="info-box">
+        <span class="label">SYSTEM TIME</span>
+        <span class="value" id="systemTimeLabel">APR 08, 2026, 06:52 AM</span>
+      </div>
+      <div class="info-box">
+        <span class="label">WALLET SESSION</span>
+        <span class="value" id="walletSessionLabel">Not linked</span>
+      </div>
+      <div class="info-box">
+        <span class="label">ACTIVE LEARNERS</span>
+        <span class="value">1,248</span>
+      </div>
+      <div class="info-box">
+        <span class="label">WEEKLY REWARDS</span>
+        <span class="value">18.4 ETH</span>
+      </div>
+      <div class="info-box bg-f4">
+        <span class="label">HIRING SIGNAL</span>
+        <span class="value">Verifiable output</span>
+      </div>
+    </div>
+  </section>
 
-        <div class="dark-card" style="padding-bottom: 20px;">
-          <div class="card-number">LEARNER STATE</div>
-          <h2 style="font-size: 18px; margin-bottom: 8px;">Your progress</h2>
-          <div class="stat"><span style="color:#888; font-weight:600; font-size:10px;">SKILL SCORE</span> <span id="codingScoreValue">0</span></div>
+  <section class="landscape">
+    <svg viewBox="0 0 1200 240" fill="none" preserveAspectRatio="none">
+      <path d="M0 120 L200 140 L400 110 L600 130 L800 100 L1000 120 L1200 80 L1200 240 L0 240 Z" fill="#D3CAB5"/>
+      <path d="M0 160 L250 180 L450 150 L650 170 L850 140 L1050 160 L1200 120 L1200 240 L0 240 Z" fill="#B5A182"/>
+      <path d="M0 200 L300 220 L500 190 L700 200 L900 170 L1100 190 L1200 160 L1200 240 L0 240 Z" fill="#8A6E4F"/>
+    </svg>
+    <div class="sticker-wrapper">
+      <div class="sticker">
+        <div class="sticker-badge">SKILL</div>
+        <div class="sticker-badge">PROOF</div>
+        <div class="sticker-badge">REWARD</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sub-grid">
+    <div class="sub-grid-item">
+      <span class="label">LATEST CODING CHALLENGE</span>
+      <span class="value">Escrow payout contract</span>
+    </div>
+    <div class="sub-grid-item">
+      <span class="label">PUZZLE FORMAT</span>
+      <span class="value">Beginner-friendly hash mining</span>
+    </div>
+    <div class="sub-grid-item">
+      <span class="label">REWARD FLOW</span>
+      <span class="value">Finish tasks to unlock payouts</span>
+    </div>
+  </section>
+
+  <section class="bottom-cards">
+    <div class="card-col" style="cursor: pointer;" onclick="location.href='solidity-track.html'">
+      <div class="card-dark">
+        <div class="num">01 / SOLIDITY TRACK</div>
+        <h2>Write, test, and<br>improve a<br>Solidity<br>challenge.</h2>
+        <p>Open a focused coding lab with the editor, test cases, console output, and progress tracking in one place.</p>
+      </div>
+    </div>
+    
+    <div class="card-col" style="cursor: pointer;" onclick="location.href='puzzle-lab.html'">
+      <div class="card-beige">
+        <div class="num">02 / PUZZLE LAB</div>
+        <h2>Mine a valid<br>hash and learn<br>proof-of-work.</h2>
+        <p>Try nonce values, watch the SHA256 output change live, and solve the puzzle when the hash starts with the required zeros.</p>
+      </div>
+    </div>
+    
+    <div class="card-col">
+      <div class="card-state">
+        <div class="num">LEARNER STATE</div>
+        <h2>Your progress</h2>
+        
+        <div class="state-top">
+          <div class="state-val">
+            <span class="label">SKILL SCORE</span>
+            <span class="value" id="codingScoreValue">824</span>
+          </div>
+          <div class="state-val">
+            <span class="label">PUZZLES SOLVED</span>
+            <span class="value">37</span>
+          </div>
+          <div class="state-val">
+            <span class="label">REWARDS EARNED</span>
+            <span class="value">2.43 ETH</span>
+          </div>
+        </div>
+        
+        <div class="state-bottom">
+          <div class="state-row">
+            <span class="label">ADDRESS</span>
+            <span class="value" id="accountValue">Not linked</span>
+          </div>
+          <div class="state-row">
+            <span class="label">NETWORK</span>
+            <span class="value" id="networkValue">EVM ready</span>
+          </div>
+          <div class="state-row">
+            <span class="label">BALANCE</span>
+            <span class="value">Connect wallet</span>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Hidden state elements expected by app.js -->
-    <div id="hiddenState" style="display: none !important;">
-      <div id="rewardEstimateLabel"></div>
-      <div id="codingModuleTitle"></div>
-      <div id="difficultyLabel"></div>
-      <div id="moduleCompletionLabel"></div>
-      <div id="completionStateLabel"></div>
-      <div id="networkValue"></div>
-      <div id="rewardBalanceValue"></div>
-      <button id="testModuleButton"></button>
-      <ul id="testCasePreview"></ul>
-      <ul id="functionSignatureList"></ul>
-      <div id="solidityModuleList"></div>
-    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="app.js"></script>
-    <script>
-      // Update simulated system time to match screenshot
-      setInterval(() => {
-        const now = new Date();
-        const el = document.getElementById('systemTimeLabel');
-        if(el) {
-          el.textContent = now.toLocaleString('en-US', { month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit' }) + ' AM'; // forcing AM/PM matching if needed, though standard toLocaleString provides it
-        }
-      }, 1000);
+<!-- Hidden state elements expected by app.js -->
+<div id="hiddenState" class="hidden-logic">
+  <div id="rewardEstimateLabel"></div>
+  <div id="codingModuleTitle"></div>
+  <div id="difficultyLabel"></div>
+  <div id="moduleCompletionLabel"></div>
+  <div id="completionStateLabel"></div>
+  <div id="rewardBalanceValue"></div>
+  <button id="testModuleButton"></button>
+  <ul id="testCasePreview"></ul>
+  <ul id="functionSignatureList"></ul>
+  <div id="solidityModuleList"></div>
+</div>
 
-      // Listen for account changes and update the wallet session label
-      setInterval(() => {
-        if(window.appState && window.appState.account) {
-          const acc = window.appState.account;
-          document.getElementById('walletSessionLabel').textContent = acc.substring(0,6) + '...' + acc.substring(acc.length-4);
-        }
-      }, 1000);
-    </script>
-  </body>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="app.js"></script>
+<script>
+  setInterval(() => {
+    const now = new Date();
+    const el = document.getElementById('systemTimeLabel');
+    if(el) {
+      el.textContent = now.toLocaleString("en-US", { month:"short", day:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit", second:"2-digit" }).toUpperCase();
+    }
+  }, 1000);
+
+  setInterval(() => {
+    if(window.appState && window.appState.account) {
+      const acc = window.appState.account;
+      document.getElementById('walletSessionLabel').textContent = acc.substring(0,6) + "..." + acc.substring(acc.length-4);
+      document.getElementById('accountValue').textContent = acc.substring(0,6) + "..." + acc.substring(acc.length-4);
+    }
+  }, 1000);
+</script>
+</body>
 </html>
