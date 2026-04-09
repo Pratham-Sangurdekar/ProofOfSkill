@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProofOfSkill — Solidity Track</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="solidity">
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <div class="app-shell">
+      <header class="top-header">
+        <div class="brand">PROOFOFSKILL</div>
+        <nav class="main-nav">
+          <a class="nav-item" href="index.html">CHALLENGES</a>
+          <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
+          <a class="nav-item active" href="solidity-track.html">SOLIDITY TRACK</a>
+          <a class="nav-item" href="#">LEADERBOARD</a>
+        </nav>
+        <div class="wallet-strip">
+          <div class="wallet-meta">
+            <div class="muted">WALLET</div>
+            <strong id="walletStateLabel">OFFLINE</strong>
+          </div>
+          <button id="connectWalletButton" class="btn small">CONNECT</button>
+          <div class="reward-box">
+            <div class="muted">REWARDS</div>
+            <strong id="rewardTotal">0.000 ETH</strong>
+            <span id="rewardDelta" class="reward-delta"></span>
+          </div>
+          <button id="withdrawRewardsButton" class="btn small ghost">WITHDRAW</button>
+        </div>
+      </header>
+
+      <main class="track-main remix-main">
+        <section class="remix-shell">
+          <aside class="remix-icon-rail">
+          </aside>
+
+          <section class="panel card remix-workbench">
+            <div class="remix-toolbar">
+              <button id="compileButton" class="btn small remix-compile">Compile</button>
+              <span class="remix-toolbar-chip">Home</span>
+              <span class="remix-toolbar-chip active">POS.sol</span>
+              <span class="remix-toolbar-spacer"></span>
+              <span class="remix-toolbar-gas" id="rewardEstimateLabel">0.010 ETH</span>
+            </div>
+
+            <div class="remix-subbar">
+              <div class="remix-subbar-left">
+                <strong id="codingModuleTitle">Module 1 — Add Two Numbers</strong>
+                <span class="remix-badge" id="difficultyLabel">Module 1</span>
+                <span class="remix-badge">Progress <strong id="moduleCompletionLabel">0 / 10</strong></span>
+                <span class="remix-badge" id="completionStateLabel">Not started</span>
+              </div>
+              <div class="remix-subbar-right">
+                <span id="accountValue">Not linked</span>
+                <span id="networkValue">EVM ready</span>
+                <span id="rewardBalanceValue">0.000 ETH</span>
+              </div>
+            </div>
+
+            <div class="template-row remix-template-row">
+              <pre id="templateBefore" class="code-fragment"></pre>
+              <pre id="templateAfter" class="code-fragment"></pre>
+            </div>
+
+            <div id="monacoEditor" class="monaco-editor"></div>
+
+            <div class="remix-bottom-actions">
+              <button id="testModuleButton" class="btn small ghost">Test Module</button>
+              <div class="remix-right-actions">
+                <button id="runTestsButton" class="btn small">Run Tests</button>
+                <button id="submitSolutionButton" class="btn small ghost">Submit Solution</button>
+              </div>
+            </div>
+
+            <div class="remix-terminal">
+              <div class="remix-terminal-head">
+                <strong>TERMINAL</strong>
+                <span id="codingScoreValue">Score: 0</span>
+              </div>
+
+              <div class="remix-terminal-meta">
+                <div>
+                  <h4>Modules</h4>
+                  <div id="solidityModuleList" class="module-list remix-filetree remix-module-grid"></div>
+                </div>
+                <div>
+                  <h4>Test cases</h4>
+                  <ul id="testCasePreview" class="test-list"></ul>
+                </div>
+                <div>
+                  <h4>Function signatures</h4>
+                  <ul id="functionSignatureList" class="sig-list"></ul>
+                </div>
+              </div>
+
+              <div id="outputConsole" class="output-console"></div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

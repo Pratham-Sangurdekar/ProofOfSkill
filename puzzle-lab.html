@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProofOfSkill — Puzzle Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="puzzle">
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <div class="app-shell">
+      <header class="top-header">
+        <div class="brand">PROOFOFSKILL</div>
+        <nav class="main-nav">
+          <a class="nav-item" href="index.html">CHALLENGES</a>
+          <a class="nav-item active" href="puzzle-lab.html">PUZZLE LAB</a>
+          <a class="nav-item" href="solidity-track.html">SOLIDITY TRACK</a>
+          <a class="nav-item" href="#">LEADERBOARD</a>
+        </nav>
+        <div class="wallet-strip">
+          <div class="wallet-meta">
+            <div class="muted">WALLET</div>
+            <strong id="walletStateLabel">OFFLINE</strong>
+          </div>
+          <button id="connectWalletButton" class="btn small">CONNECT</button>
+          <div class="reward-box">
+            <div class="muted">REWARDS</div>
+            <strong id="rewardTotal">0.000 ETH</strong>
+            <span id="rewardDelta" class="reward-delta"></span>
+          </div>
+          <button id="withdrawRewardsButton" class="btn small ghost">WITHDRAW</button>
+        </div>
+      </header>
+
+      <main class="track-main">
+        <section class="puzzle-layout-full">
+          <article class="panel puzzle-core card">
+            <div class="panel-head">
+              <strong id="puzzleModuleTitle">Module 1 — Prefix 0</strong>
+              <span id="difficultyLabel">prefix 0</span>
+            </div>
+            <div class="status-row">
+              <div class="status-card-lite"><span>Timer</span><strong id="timerValue">120s</strong></div>
+              <div class="status-card-lite"><span>Attempts</span><strong id="attemptCounter">0</strong></div>
+              <div class="status-card-lite"><span>Status</span><strong id="puzzleStatus">Awaiting mining</strong></div>
+            </div>
+
+            <div class="mining-center">
+              <label for="nonceInput">Nonce</label>
+              <input id="nonceInput" type="number" min="0" value="0" />
+              <label>Hash output</label>
+              <code id="hashOutput">-</code>
+              <div class="module-buttons">
+                <button id="mineButton" class="btn small">Mine</button>
+                <button id="submitPuzzleButton" class="btn small">Submit Reward</button>
+              </div>
+            </div>
+
+            <div class="module-buttons">
+              <button id="prevModuleButton" class="btn small ghost">Previous Module</button>
+              <button id="nextModuleButton" class="btn small ghost">Next Module</button>
+              <button id="testModuleButton" class="btn small">Test Module</button>
+            </div>
+          </article>
+
+          <aside class="panel puzzle-side card">
+            <h3>Mining metadata</h3>
+            <div class="status-card-lite"><span>Current prefix</span><strong id="miningPrefixLabel">0</strong></div>
+            <div class="status-card-lite"><span>Reward amount</span><strong id="rewardEstimateLabel">0.000 ETH</strong></div>
+            <div class="status-card-lite"><span>Account</span><strong id="accountValue">Not linked</strong></div>
+            <div class="status-card-lite"><span>Network</span><strong id="networkValue">EVM ready</strong></div>
+            <div class="status-card-lite"><span>Reward Balance</span><strong id="rewardBalanceValue">0.000 ETH</strong></div>
+            <div class="status-card-lite"><span>Contract Balance</span><strong id="contractBalanceValue">0.000 ETH</strong></div>
+            <div class="status-card-lite"><span>Solved Modules</span><strong id="moduleCompletionLabel">0 / 10</strong></div>
+            <h4>Output console</h4>
+            <div id="outputConsole" class="output-console"></div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

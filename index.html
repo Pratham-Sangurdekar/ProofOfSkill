@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProofOfSkill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="index">
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <div class="app-shell">
+      <header class="top-header">
+        <div class="brand">PROOFOFSKILL</div>
+        <nav class="main-nav">
+          <a class="nav-item active" href="index.html">CHALLENGES</a>
+          <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
+          <a class="nav-item" href="solidity-track.html">SOLIDITY TRACK</a>
+          <a class="nav-item" href="#">LEADERBOARD</a>
+        </nav>
+        <div class="wallet-strip">
+          <div class="wallet-meta">
+            <div class="muted">WALLET</div>
+            <strong id="walletStateLabel">OFFLINE</strong>
+          </div>
+          <button id="connectWalletButton" class="btn small">CONNECT</button>
+          <div class="reward-box">
+            <div class="muted">REWARDS</div>
+            <strong id="rewardTotal">0.000 ETH</strong>
+            <span id="rewardDelta" class="reward-delta"></span>
+          </div>
+          <button id="withdrawRewardsButton" class="btn small ghost">WITHDRAW</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-grid">
+          <article class="hero-main card">
+            <p class="eyebrow">WEB3 LEARNING / SOLIDITY + PUZZLES / EARN BY DOING</p>
+            <h1>Learn Web3 by solving real challenges.</h1>
+            <p>
+              Practice Solidity and hash mining in dedicated labs. Connect MetaMask, complete
+              modules, and claim on-chain rewards for verified progress.
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="solidity-track.html">Open Solidity Track</a>
+              <a class="btn" href="puzzle-lab.html">Enter Puzzle Lab</a>
+            </div>
+          </article>
+
+          <aside class="hero-side">
+            <div class="status-card card"><span>SYSTEM TIME</span><strong id="systemTime">--</strong></div>
+            <div class="status-card card"><span>WALLET SESSION</span><strong id="walletSession">Not linked</strong></div>
+            <div class="status-card card"><span>ACTIVE LEARNERS</span><strong>1,248</strong></div>
+            <div class="status-card card"><span>CONTRACT BALANCE</span><strong id="contractBalanceValue">0.000 ETH</strong></div>
+            <div class="status-card card"><span>OWNER MODE</span><strong id="ownerBadge">No</strong></div>
+          </aside>
+        </section>
+
+        <section class="strip card">
+          <div><span>SOLIDITY TRACK</span><strong>10 coding modules</strong></div>
+          <div><span>PUZZLE LAB</span><strong>10 mining modules</strong></div>
+          <div><span>FLOW</span><strong>Solve → Reward → Withdraw</strong></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
