@@ -1,0 +1,399 @@
+/* Remix Clone Theme Styles */
+
+:root {
+  --rmx-bg-primary: #1E1E24;
+  --rmx-bg-secondary: #252526;
+  --rmx-bg-tertiary: #1E1E1E;
+  --rmx-border: #333333;
+  --rmx-text-main: #CCCCCC;
+  --rmx-text-muted: #969696;
+  --rmx-accent: #007ACC;
+  --rmx-keyword: #C792EA;
+  --rmx-string: #C3E88D;
+  --rmx-variable: #FFCB6B;
+  --rmx-type: #F07178;
+  --rmx-number: #F78C6C;
+  --rmx-comment: #676E95;
+  --rmx-selection: rgba(255, 255, 255, 0.1);
+  --rmx-blue-btn: #326CE5;
+  --rmx-btn-hover: #484C66;
+  --rmx-input-bg: #1B1E2B;
+}
+
+body[data-page="solidity"] {
+  background-color: var(--rmx-bg-primary) !important;
+  color: var(--rmx-text-main) !important;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+}
+
+/* Hide the old top header on the Remix view */
+body[data-page="solidity"] .top-header {
+  display: none !important;
+}
+
+body[data-page="solidity"] .app-shell {
+  padding: 0;
+  height: 100vh;
+  max-width: none;
+  display: flex;
+  flex-direction: row;
+}
+
+body[data-page="solidity"] .track-main {
+  flex: 1;
+  display: flex;
+}
+
+.remix-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Left Icon Rail */
+.rmx-sidebar-icons {
+  width: 48px;
+  background-color: var(--rmx-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  border-right: 1px solid var(--rmx-bg-primary);
+}
+
+.rmx-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  color: var(--rmx-text-muted);
+  cursor: pointer;
+}
+.rmx-icon.active {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-left: 2px solid var(--rmx-accent);
+}
+
+/* File Explorer Panel */
+.rmx-explorer {
+  width: 260px;
+  background-color: var(--rmx-bg-secondary);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--rmx-border);
+}
+
+.rmx-panel-header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+.rmx-panel-header-actions {
+  display: flex;
+  gap: 8px;
+  color: #4ade80; /* green shield */
+  font-size: 14px;
+}
+
+.rmx-explorer-body {
+  padding: 8px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.rmx-create-btn {
+  width: 100%;
+  background-color: #3b3f51; /* Dark-ish gray matching Remix create */
+  color: #fff;
+  border: 1px solid var(--rmx-border);
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.rmx-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+
+.rmx-tree li {
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--rmx-text-main);
+  border-radius: 3px;
+  margin-bottom: 2px;
+}
+
+.rmx-tree li:hover {
+  background-color: var(--rmx-btn-hover);
+}
+
+.rmx-tree li.active {
+  background-color: #3B3F54;
+  color: #fff;
+}
+
+.rmx-tree-folder::before {
+  content: '📁';
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.rmx-tree-file::before {
+  content: '📄';
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+/* Main Area */
+.rmx-main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--rmx-bg-primary);
+  min-width: 0;
+}
+
+/* Tabs */
+.rmx-tabs {
+  height: 36px;
+  background-color: var(--rmx-bg-secondary);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border-bottom: 1px solid #1E1E24;
+}
+
+.rmx-tab-btn {
+  background-color: #007ACC;
+  color: white;
+  border: none;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.rmx-tab-icons {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 12px;
+  color: var(--rmx-text-muted);
+  border-right: 1px solid var(--rmx-border);
+  height: 100%;
+}
+
+.rmx-tab {
+  height: 36px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--rmx-text-muted);
+  background-color: var(--rmx-bg-secondary);
+  border-right: 1px solid var(--rmx-border);
+  cursor: pointer;
+}
+
+.rmx-tab.active {
+  background-color: var(--rmx-bg-primary);
+  color: #fff;
+  border-top: 2px solid var(--rmx-accent);
+}
+
+.rmx-tab-close {
+  display: inline-block;
+  opacity: 0;
+}
+
+.rmx-tab:hover .rmx-tab-close, .rmx-tab.active .rmx-tab-close {
+  opacity: 1;
+}
+
+/* Editor Container */
+.rmx-editor-wrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#monacoEditor {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* We hide templates in Remix mode mostly, or put them invisibly as data sources for Monaco */
+.template-row {
+  display: none !important;
+}
+
+/* Status / Bottom Panel (Terminal) */
+.rmx-bottom-panel {
+  height: 300px;
+  background-color: var(--rmx-bg-secondary);
+  border-top: 1px solid var(--rmx-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.rmx-bottom-toolbar {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--rmx-border);
+}
+
+.rmx-explain-btn {
+  background-color: #1A3F40;
+  color: #4ADE80;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.rmx-copilot-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--rmx-text-muted);
+}
+
+.rmx-terminal-header {
+  height: 36px;
+  background-color: var(--rmx-bg-tertiary);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--rmx-text-muted);
+}
+
+.rmx-term-search {
+  background-color: var(--rmx-bg-secondary);
+  border: 1px solid var(--rmx-border);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: 250px;
+  font-size: 11px;
+}
+
+.rmx-terminal-body {
+  flex: 1;
+  padding: 16px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+  color: #CCCCCC;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.rmx-console-welcome {
+  margin-bottom: 12px;
+}
+
+.rmx-console-welcome strong {
+  color: #fff;
+  font-weight: normal;
+}
+
+.rmx-console-list {
+  padding-left: 20px;
+  margin: 12px 0;
+  list-style-type: disc;
+}
+
+/* Hacking the original logic components into hidden state or sidebar */
+.hidden-logic {
+  display: none !important;
+}
+
+/* Force Monaco to fit */
+.monaco-editor, .monaco-editor .margin, .monaco-editor-background {
+  background-color: var(--rmx-bg-primary) !important;
+}
+
+/* Dynamic Module Buttons disguised as File tree items */
+.rmx-dynamic-modules {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.rmx-dynamic-modules .module-row {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--rmx-text-main);
+  border-radius: 3px;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-family: inherit;
+  text-align: left;
+}
+
+.rmx-dynamic-modules .module-row:hover {
+  background-color: var(--rmx-btn-hover);
+}
+
+.rmx-dynamic-modules .module-row.active {
+  background-color: #3B3F54;
+  color: #ffffff;
+}
+
+.rmx-dynamic-modules .module-row::before {
+  content: '📄';
+  font-size: 10px;
+  opacity: 0.6;
+}

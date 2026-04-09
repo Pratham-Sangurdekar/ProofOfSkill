@@ -467,14 +467,15 @@ function updateWalletUI() {
   const networkValue = $("networkValue");
   const ownerBadge = $("ownerBadge");
   const connectBtn = $("connectWalletButton");
+  const isHomeWalletControl = connectBtn?.dataset?.homeWallet === "true";
 
   if (!appState.isConnected) {
-    if (walletLabel) walletLabel.textContent = "OFFLINE";
+    if (walletLabel) walletLabel.textContent = window.ethereum ? "METAMASK READY" : "NO WALLET";
     if (walletSession) walletSession.textContent = "Not linked";
     if (accountValue) accountValue.textContent = "Not linked";
     if (networkValue) networkValue.textContent = "EVM ready";
     if (ownerBadge) ownerBadge.textContent = "No";
-    if (connectBtn) connectBtn.textContent = "CONNECT";
+    if (connectBtn && !isHomeWalletControl) connectBtn.textContent = "CONNECT";
     return;
   }
 
@@ -482,7 +483,7 @@ function updateWalletUI() {
   if (walletSession) walletSession.textContent = shortAddress(appState.account);
   if (accountValue) accountValue.textContent = shortAddress(appState.account);
   if (ownerBadge) ownerBadge.textContent = appState.isOwner ? "Yes" : "No";
-  if (connectBtn) connectBtn.textContent = `🦊 ${shortAddress(appState.account)}`;
+  if (connectBtn && !isHomeWalletControl) connectBtn.textContent = `🦊 ${shortAddress(appState.account)}`;
 
   if (window.ethereum) {
     window.ethereum.request({ method: "eth_chainId" }).then((chainId) => {

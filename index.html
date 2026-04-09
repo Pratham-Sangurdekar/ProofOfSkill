@@ -3,76 +3,418 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ProofOfSkill</title>
+    <title>ProofOfSkill — Challenges</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* 
+       * NEW EXACT HOMEPAGE STYLES 
+       * Matches the provided beige grid layout
+       */
+      body[data-page="index"] {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', -apple-system, sans-serif;
+        background-color: #E2DDD5;
+        color: #1A1A1A;
+        /* Grid background pattern */
+        background-image: 
+          linear-gradient(rgba(194, 188, 174, 0.3) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(194, 188, 174, 0.3) 1px, transparent 1px);
+        background-size: 20px 20px;
+        min-height: 100vh;
+      }
+
+      /* Top Header */
+      .new-header {
+        height: 60px;
+        background-color: transparent;
+        border-bottom: 1px solid #C2BCAE;
+        display: flex;
+        justify-content: space-between;
+        color: #1A1A1A;
+        box-sizing: border-box;
+      }
+
+      .new-header .left-section {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .new-header .brand {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        font-size: 16px;
+        border-right: 1px solid #C2BCAE;
+        background-color: transparent;
+      }
+
+      .new-header .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #1A1A1A;
+        letter-spacing: 0.05em;
+        border-right: 1px solid #C2BCAE;
+        transition: background-color 0.2s;
+        background-color: transparent;
+      }
+
+      .new-header .nav-item:hover {
+        background-color: rgba(0,0,0,0.05);
+      }
+
+      .new-header .nav-item.active {
+        background-color: #1A1A1A;
+        color: #FFF;
+      }
+
+      .new-header .right-section {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .new-header .wallet-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 15px;
+        border-left: 1px solid #C2BCAE;
+        border-right: 1px solid #C2BCAE;
+        margin-right: -1px;
+        background-color: #FFF; /* Distinct white bg matching screenshot */
+      }
+
+      .new-header .rewards-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 15px;
+        border-right: 1px solid #C2BCAE;
+      }
+
+      .new-header .top-label {
+        font-size: 9px;
+        color: #666;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+
+      .new-header .bottom-value {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .new-header .withdraw-btn {
+        background: transparent;
+        border: none;
+        border-left: 1px solid #C2BCAE;
+        padding: 0 20px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        text-transform: uppercase;
+        color: #1A1A1A;
+      }
+      
+      .new-header .withdraw-btn:hover {
+        background-color: rgba(0,0,0,0.05);
+      }
+
+      /* Main layout wrapper */
+      .layout-container {
+        padding: 0;
+        max-width: 1440px;
+        margin: 0 auto;
+        border-left: 1px solid #C2BCAE;
+        border-right: 1px solid #C2BCAE;
+        min-height: 100vh;
+        background-color: transparent;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        padding: 40px 20px;
+        background-color: #D6D1C4; /* slightly darker beige block */
+        border-bottom: 1px solid #C2BCAE;
+        margin-bottom: 20px;
+      }
+
+      .hero-section .kicker {
+        font-size: 10px;
+        font-weight: 600;
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 24px;
+      }
+
+      .hero-section h1 {
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin: 0 0 24px 0;
+        letter-spacing: -0.03em;
+        max-width: 600px;
+      }
+
+      .hero-section .description {
+        font-size: 14px;
+        line-height: 1.6;
+        max-width: 800px;
+        margin-bottom: 32px;
+      }
+
+      /* Stats Block in Hero */
+      .hero-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+      .hero-stats .stat-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .hero-stats .stat-item {
+        display: flex;
+        align-items: center;
+      }
+      .hero-stats .stat-item span {
+        font-weight: 400;
+        color: #555;
+        margin-right: 6px;
+      }
+      .hero-stats strong {
+        font-weight: 800;
+        color: #1A1A1A;
+      }
+
+      /* Middle Info Strip */
+      .info-strip {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      .info-strip .label {
+        font-weight: 400;
+        color: #555;
+        margin-right: 4px;
+      }
+      .info-strip .val {
+        font-weight: 800;
+      }
+      
+      .reward-flow {
+        padding: 0 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .reward-flow .label {
+        font-weight: 400;
+        color: #555;
+        margin-right: 4px;
+      }
+
+      /* Dark Cards Section */
+      .cards-section {
+        padding: 0 20px 40px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .dark-card {
+        background-color: #161616;
+        color: #FFF;
+        border-radius: 8px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        transition: transform 0.2s, background-color 0.2s;
+        border: 1px solid #333;
+      }
+
+      .dark-card:hover {
+        background-color: #222;
+        transform: translateY(-2px);
+      }
+
+      .dark-card .card-number {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #888;
+        margin-bottom: 16px;
+      }
+
+      .dark-card h2 {
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0 0 16px 0;
+        letter-spacing: -0.02em;
+        max-width: 400px;
+      }
+
+      .dark-card p {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #AAA;
+        margin: 0;
+        max-width: 600px;
+      }
+      
+      .dark-card .stat {
+        font-size: 14px;
+        font-weight: 800;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body data-page="index">
-    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <canvas id="confettiCanvas" aria-hidden="true" style="pointer-events:none; position:absolute; z-index:9999;"></canvas>
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-    <div class="app-shell">
-      <header class="top-header">
-        <div class="brand">PROOFOFSKILL</div>
-        <nav class="main-nav">
+    <!-- Main Layout Container -->
+    <div class="layout-container">
+      
+      <!-- Top Header inside the boxed layout constraint -->
+      <header class="new-header top-header" id="customNavHeader">
+        <div class="left-section">
+          <div class="brand">PROOFOFSKILL</div>
           <a class="nav-item active" href="index.html">CHALLENGES</a>
           <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
           <a class="nav-item" href="solidity-track.html">SOLIDITY TRACK</a>
           <a class="nav-item" href="#">LEADERBOARD</a>
-        </nav>
-        <div class="wallet-strip">
-          <div class="wallet-meta">
-            <div class="muted">WALLET</div>
-            <strong id="walletStateLabel">OFFLINE</strong>
+        </div>
+        <div class="right-section wallet-strip">
+        <div class="wallet-box" style="cursor:pointer;" id="connectWalletButton" data-home-wallet="true">
+            <div class="top-label">WALLET <span id="walletStateLabel" style="color:inherit">OFFLINE</span></div>
+            <div class="bottom-value" id="accountValue">NOT CONNECTED</div>
           </div>
-          <button id="connectWalletButton" class="btn small">CONNECT</button>
-          <div class="reward-box">
-            <div class="muted">REWARDS</div>
-            <strong id="rewardTotal">0.000 ETH</strong>
-            <span id="rewardDelta" class="reward-delta"></span>
+          <div class="rewards-box">
+            <div class="top-label">REWARDS</div>
+            <div class="bottom-value"><span id="rewardTotal">0.000</span> ETH</div>
+            <div id="rewardDelta" style="display:none;"></div>
           </div>
-          <button id="withdrawRewardsButton" class="btn small ghost">WITHDRAW</button>
+          <button class="withdraw-btn" id="withdrawRewardsButton">WITHDRAW</button>
         </div>
       </header>
 
-      <main>
-        <section class="hero-grid">
-          <article class="hero-main card">
-            <p class="eyebrow">WEB3 LEARNING / SOLIDITY + PUZZLES / EARN BY DOING</p>
-            <h1>Learn Web3 by solving real challenges.</h1>
-            <p>
-              Practice Solidity and hash mining in dedicated labs. Connect MetaMask, complete
-              modules, and claim on-chain rewards for verified progress.
-            </p>
-            <div class="hero-actions">
-              <a class="btn" href="solidity-track.html">Open Solidity Track</a>
-              <a class="btn" href="puzzle-lab.html">Enter Puzzle Lab</a>
-            </div>
-          </article>
+      <!-- Solid Beige Hero Block -->
+      <div class="hero-section">
+        <div class="kicker">WEB3 LEARNING / SOLIDITY + PUZZLES / EARN BY DOING</div>
+        
+        <h1>Learn Web3 by<br>solving real<br>challenges.</h1>
+        
+        <div class="description">
+          Practice Solidity, solve timed puzzles, and track progress with a wallet-connected profile. The goal is simple: clear tasks, useful feedback, and rewards for completed work.
+        </div>
+        
+        <div class="hero-stats">
+          <div class="stat-row">
+            <div class="stat-item"><span>01 / CODE</span> <strong>Open Solidity Track</strong></div>
+            <div class="stat-item" style="margin-left: 12px;"><span>02 / REASONING</span> <strong>Enter Puzzle Lab</strong></div>
+          </div>
+          <div class="stat-row"><div class="stat-item"><span>SYSTEM TIME</span> <strong id="systemTimeLabel">Apr 09, 2026, 07:31:31 AM</strong></div></div>
+          <div class="stat-row"><div class="stat-item"><span>WALLET SESSION</span> <strong id="walletSessionLabel">None</strong></div></div>
+          <div class="stat-row"><div class="stat-item"><span>ACTIVE LEARNERS</span> <strong>1,248</strong></div></div>
+          <div class="stat-row"><div class="stat-item"><span>WEEKLY REWARDS</span> <strong>18.4 ETH</strong></div></div>
+          <div class="stat-row"><div class="stat-item"><span>HIRING SIGNAL</span> <strong>Verifiable output</strong></div></div>
+          <div class="stat-row"><div class="stat-item"><span>SKILL PROOF</span> <strong>REWARD</strong></div></div>
+        </div>
+      </div>
 
-          <aside class="hero-side">
-            <div class="status-card card"><span>SYSTEM TIME</span><strong id="systemTime">--</strong></div>
-            <div class="status-card card"><span>WALLET SESSION</span><strong id="walletSession">Not linked</strong></div>
-            <div class="status-card card"><span>ACTIVE LEARNERS</span><strong>1,248</strong></div>
-            <div class="status-card card"><span>CONTRACT BALANCE</span><strong id="contractBalanceValue">0.000 ETH</strong></div>
-            <div class="status-card card"><span>OWNER MODE</span><strong id="ownerBadge">No</strong></div>
-          </aside>
-        </section>
+      <div class="info-strip">
+        <div><span class="label">LATEST CODING CHALLENGE</span> <span class="val">Escrow payout contract</span></div>
+        <div><span class="label">PUZZLE FORMAT</span> <span class="val">Beginner-friendly hash mining</span></div>
+      </div>
 
-        <section class="strip card">
-          <div><span>SOLIDITY TRACK</span><strong>10 coding modules</strong></div>
-          <div><span>PUZZLE LAB</span><strong>10 mining modules</strong></div>
-          <div><span>FLOW</span><strong>Solve → Reward → Withdraw</strong></div>
-        </section>
-      </main>
+      <div class="reward-flow">
+        <span class="label">REWARD FLOW</span> <span class="val">Finish tasks to unlock payouts</span>
+      </div>
+
+      <!-- Dark Cards / Entry points -->
+      <div class="cards-section">
+        <a href="solidity-track.html" class="dark-card">
+          <div class="card-number">01 / SOLIDITY TRACK</div>
+          <h2>Write, test, and<br>improve a<br>Solidity<br>challenge.</h2>
+          <p>Open a focused coding lab with the editor, test cases, console output, and progress tracking in one place.</p>
+        </a>
+
+        <a href="puzzle-lab.html" class="dark-card">
+          <div class="card-number">02 / PUZZLE LAB</div>
+          <h2>Mine a valid<br>hash and learn<br>proof-of-work.</h2>
+          <p>Try nonce values, watch the SHA256 output change live, and solve the puzzle when the hash starts with the required zeros.</p>
+        </a>
+
+        <div class="dark-card" style="padding-bottom: 20px;">
+          <div class="card-number">LEARNER STATE</div>
+          <h2 style="font-size: 18px; margin-bottom: 8px;">Your progress</h2>
+          <div class="stat"><span style="color:#888; font-weight:600; font-size:10px;">SKILL SCORE</span> <span id="codingScoreValue">0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden state elements expected by app.js -->
+    <div id="hiddenState" style="display: none !important;">
+      <div id="rewardEstimateLabel"></div>
+      <div id="codingModuleTitle"></div>
+      <div id="difficultyLabel"></div>
+      <div id="moduleCompletionLabel"></div>
+      <div id="completionStateLabel"></div>
+      <div id="networkValue"></div>
+      <div id="rewardBalanceValue"></div>
+      <button id="testModuleButton"></button>
+      <ul id="testCasePreview"></ul>
+      <ul id="functionSignatureList"></ul>
+      <div id="solidityModuleList"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="app.js"></script>
+    <script>
+      // Update simulated system time to match screenshot
+      setInterval(() => {
+        const now = new Date();
+        const el = document.getElementById('systemTimeLabel');
+        if(el) {
+          el.textContent = now.toLocaleString('en-US', { month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit' }) + ' AM'; // forcing AM/PM matching if needed, though standard toLocaleString provides it
+        }
+      }, 1000);
+
+      // Listen for account changes and update the wallet session label
+      setInterval(() => {
+        if(window.appState && window.appState.account) {
+          const acc = window.appState.account;
+          document.getElementById('walletSessionLabel').textContent = acc.substring(0,6) + '...' + acc.substring(acc.length-4);
+        }
+      }, 1000);
+    </script>
   </body>
 </html>

@@ -4,115 +4,342 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ProofOfSkill — Solidity Track</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Use standard font for the IDE look -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="solidity-track-styles.css" />
+    <style>
+      /* New UI Top Header */
+      body[data-page="solidity"] {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+      
+      body[data-page="solidity"] .app-shell.remix-layout {
+        flex: 1;
+        height: calc(100vh - 60px);
+        min-height: 0;
+      }
+
+      .new-header {
+        height: 60px;
+        background-color: #E2DDD5;
+        border-bottom: 1px solid #C2BCAE;
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Inter', sans-serif;
+        color: #000;
+        box-sizing: border-box;
+      }
+
+      .new-header .left-section {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .new-header .brand {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        font-size: 16px;
+        border-right: 1px solid #C2BCAE;
+      }
+
+      .new-header .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: #000;
+        letter-spacing: 0.05em;
+        border-right: 1px solid #C2BCAE;
+        transition: background-color 0.2s;
+      }
+
+      .new-header .nav-item:hover {
+        background-color: rgba(0,0,0,0.05);
+      }
+
+      /* Active state on Challenges in homepage, but Solidity Track is active here */
+      .new-header .nav-item.active {
+        background-color: #1A1A1A;
+        color: #FFF;
+      }
+
+      .new-header .right-section {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .new-header .wallet-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 15px;
+        border-left: 1px solid #C2BCAE;
+        border-right: 1px solid #C2BCAE;
+        margin-right: -1px;
+      }
+
+      .new-header .rewards-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 15px;
+        border-right: 1px solid #C2BCAE;
+      }
+
+      .new-header .top-label {
+        font-size: 9px;
+        color: #666;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+
+      .new-header .bottom-value {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .new-header .withdraw-btn {
+        background: transparent;
+        border: none;
+        border-left: 1px solid #C2BCAE;
+        padding: 0 20px;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        text-transform: uppercase;
+        color: #000;
+      }
+      .new-header .withdraw-btn:hover {
+        background-color: rgba(0,0,0,0.05);
+      }
+    </style>
   </head>
   <body data-page="solidity">
-    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <canvas id="confettiCanvas" aria-hidden="true" style="pointer-events:none; position:absolute; z-index:9999;"></canvas>
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-    <div class="app-shell">
-      <header class="top-header">
+    <!-- NEW NAVIGATION HEADER -->
+    <header class="new-header top-header" id="customNavHeader">
+      <div class="left-section">
         <div class="brand">PROOFOFSKILL</div>
-        <nav class="main-nav">
-          <a class="nav-item" href="index.html">CHALLENGES</a>
-          <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
-          <a class="nav-item active" href="solidity-track.html">SOLIDITY TRACK</a>
-          <a class="nav-item" href="#">LEADERBOARD</a>
-        </nav>
-        <div class="wallet-strip">
-          <div class="wallet-meta">
-            <div class="muted">WALLET</div>
-            <strong id="walletStateLabel">OFFLINE</strong>
-          </div>
-          <button id="connectWalletButton" class="btn small">CONNECT</button>
-          <div class="reward-box">
-            <div class="muted">REWARDS</div>
-            <strong id="rewardTotal">0.000 ETH</strong>
-            <span id="rewardDelta" class="reward-delta"></span>
-          </div>
-          <button id="withdrawRewardsButton" class="btn small ghost">WITHDRAW</button>
+        <a class="nav-item" href="index.html">CHALLENGES</a>
+        <a class="nav-item" href="puzzle-lab.html">PUZZLE LAB</a>
+        <a class="nav-item active" href="solidity-track.html">SOLIDITY TRACK</a>
+        <a class="nav-item" href="#">LEADERBOARD</a>
+      </div>
+      <div class="right-section wallet-strip">
+        <div class="wallet-box" style="cursor:pointer;" id="connectWalletButton" data-home-wallet="true">
+          <div class="top-label">WALLET <span id="walletStateLabel" style="color:inherit">OFFLINE</span></div>
+          <div class="bottom-value" id="accountValue">NOT CONNECTED</div>
         </div>
-      </header>
+        <div class="rewards-box">
+          <div class="top-label">REWARDS</div>
+          <div class="bottom-value"><span id="rewardTotal">0.000</span> ETH</div>
+          <div id="rewardDelta" style="display:none;"></div>
+        </div>
+        <button class="withdraw-btn" id="withdrawRewardsButton">WITHDRAW</button>
+      </div>
+    </header>
 
-      <main class="track-main remix-main">
-        <section class="remix-shell">
-          <aside class="remix-icon-rail">
-          </aside>
+    <div class="app-shell remix-layout">
+      <!-- 1. Narrow Icon Rail -->
+      <aside class="rmx-sidebar-icons">
+        <div class="rmx-icon active">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 3 4 3 4 21 20 21 20 8 15 3 9 3"></polyline>
+            <polyline points="15 3 15 8 20 8"></polyline>
+          </svg>
+        </div>
+        <div class="rmx-icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <div class="rmx-icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="rmx-icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 8l4 4-4 4M8 12h8"></path>
+          </svg>
+        </div>
+      </aside>
 
-          <section class="panel card remix-workbench">
-            <div class="remix-toolbar">
-              <button id="compileButton" class="btn small remix-compile">Compile</button>
-              <span class="remix-toolbar-chip">Home</span>
-              <span class="remix-toolbar-chip active">POS.sol</span>
-              <span class="remix-toolbar-spacer"></span>
-              <span class="remix-toolbar-gas" id="rewardEstimateLabel">0.010 ETH</span>
+      <!-- 2. File Explorer Panel -->
+      <aside class="rmx-explorer">
+        <div class="rmx-panel-header">
+          <span>FILE EXPLORER</span>
+          <div class="rmx-panel-header-actions">
+            <!-- Shield icon and right arrow -->
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="#4ade80" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <svg style="margin-left:4px;" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+        <div class="rmx-explorer-body">
+          <button class="rmx-create-btn">
+            <span>+ Create</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          
+          <ul class="rmx-tree">
+            <li class="rmx-tree-folder">.deps</li>
+            <li class="rmx-tree-folder">.states</li>
+            <li class="rmx-tree-folder">vm-osaka</li>
+            <li class="rmx-tree-folder">artifacts</li>
+            <li class="rmx-tree-folder">contracts</li>
+            <li class="rmx-tree-folder">scripts</li>
+            <li class="rmx-tree-folder">tests</li>
+            <li class="rmx-tree-file" style="color: #676E95;">.prettierrc.json</li>
+            <li class="rmx-tree-file"><span style="color:#C792EA;">new.sol</span> <span style="margin-left:auto; color:yellow;">2</span></li>
+          </ul>
+
+          <!-- Insert dynamic lessons here to look like files -->
+          <div id="solidityModuleList" class="rmx-dynamic-modules"></div>
+
+          <ul class="rmx-tree" style="margin-top: 2px;">
+            <li class="rmx-tree-file">README.txt</li>
+            <li class="rmx-tree-file" style="color: #676E95;">remix.config.json</li>
+            <li class="rmx-tree-file" style="color: #676E95;">remix.config1.json</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- 3. Main Editor Area -->
+      <main class="rmx-main-area">
+        <!-- Tabs -->
+        <div class="rmx-tabs">
+          <button class="rmx-tab-btn" id="compileButton">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="3" fill="none" style="margin-right:2px"><circle cx="12" cy="12" r="10"></circle><path d="M12 8l4 4-4 4"></path></svg>
+            Compile
+            <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2" fill="none" style="margin-left:8px"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="rmx-tab-icons">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><path d="M11 8v6"></path><path d="M8 11h6"></path></svg>
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+          </div>
+          <div class="rmx-tab active">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg> POS.sol 
+            <span class="rmx-tab-close">×</span>
+          </div>
+        </div>
+
+        <!-- Monaco wrapper -->
+        <div class="rmx-editor-wrap" style="height:calc(100vh - 336px);">
+          <div id="monacoEditor"></div>
+          
+          <div class="template-row hidden-logic">
+            <pre id="templateBefore" class="code-fragment"></pre>
+            <pre id="templateAfter" class="code-fragment"></pre>
+          </div>
+        </div>
+
+        <!-- Terminal Panel -->
+        <div class="rmx-bottom-panel" style="height:300px;">
+          <div class="rmx-bottom-toolbar">
+            <button class="rmx-explain-btn" id="runTestsButton">
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+              Explain contract
+            </button>
+            <div class="rmx-copilot-toggle" style="gap: 12px;">
+              <button id="submitSolutionButton" style="background-color: #007ACC; color: white; border: none; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: 600; cursor: pointer;">Submit Solution</button>
+              <label style="display:flex; align-items:center; gap:6px;">
+                AI copilot 
+                <input type="checkbox" id="copilotToggle" checked style="accent-color: #007ACC; cursor:pointer;" />
+              </label>
             </div>
-
-            <div class="remix-subbar">
-              <div class="remix-subbar-left">
-                <strong id="codingModuleTitle">Module 1 — Add Two Numbers</strong>
-                <span class="remix-badge" id="difficultyLabel">Module 1</span>
-                <span class="remix-badge">Progress <strong id="moduleCompletionLabel">0 / 10</strong></span>
-                <span class="remix-badge" id="completionStateLabel">Not started</span>
-              </div>
-              <div class="remix-subbar-right">
-                <span id="accountValue">Not linked</span>
-                <span id="networkValue">EVM ready</span>
-                <span id="rewardBalanceValue">0.000 ETH</span>
-              </div>
+          </div>
+          <div class="rmx-terminal-header">
+            <span>0</span>
+            <label style="display:flex; align-items:center; gap:4px; font-size:10px;"><input type="checkbox"> Listen on all transactions</label>
+            <svg style="margin-left:14px" viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" class="rmx-term-search" placeholder="Filter with transaction hash or ad..." />
+            
+            <span style="margin-left:auto; display:flex; gap:12px;">
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
+              <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </span>
+          </div>
+          <div class="rmx-terminal-body" id="outputConsole">
+            <div class="rmx-console-welcome">
+              <strong>Welcome to Remix 2.0.2</strong><br><br>
+              Your files are stored in indexedDB, 768.77 KB / 276.26 GB used<br><br>
+              You can use this terminal to:<br>
+              <ul class="rmx-console-list">
+                <li>Check transactions details and start debugging.</li>
+                <li>Execute JavaScript scripts:
+                  <ul class="rmx-console-list" style="margin:4px 0;">
+                    <li>Input a script directly in the command line interface</li>
+                    <li>Select a Javascript file in the file explorer and then run <code>remix.execute()</code> or <code>remix.executeCurrent()</code> in the command line interface</li>
+                    <li>Right-click on a JavaScript file in the file explorer and then click <code>Run</code></li>
+                  </ul>
+                </li>
+              </ul>
+              The following libraries are accessible:<br>
+              <ul class="rmx-console-list">
+                <li style="text-decoration:underline; cursor:pointer;">ethers.js</li>
+              </ul>
             </div>
-
-            <div class="template-row remix-template-row">
-              <pre id="templateBefore" class="code-fragment"></pre>
-              <pre id="templateAfter" class="code-fragment"></pre>
-            </div>
-
-            <div id="monacoEditor" class="monaco-editor"></div>
-
-            <div class="remix-bottom-actions">
-              <button id="testModuleButton" class="btn small ghost">Test Module</button>
-              <div class="remix-right-actions">
-                <button id="runTestsButton" class="btn small">Run Tests</button>
-                <button id="submitSolutionButton" class="btn small ghost">Submit Solution</button>
-              </div>
-            </div>
-
-            <div class="remix-terminal">
-              <div class="remix-terminal-head">
-                <strong>TERMINAL</strong>
-                <span id="codingScoreValue">Score: 0</span>
-              </div>
-
-              <div class="remix-terminal-meta">
-                <div>
-                  <h4>Modules</h4>
-                  <div id="solidityModuleList" class="module-list remix-filetree remix-module-grid"></div>
-                </div>
-                <div>
-                  <h4>Test cases</h4>
-                  <ul id="testCasePreview" class="test-list"></ul>
-                </div>
-                <div>
-                  <h4>Function signatures</h4>
-                  <ul id="functionSignatureList" class="sig-list"></ul>
-                </div>
-              </div>
-
-              <div id="outputConsole" class="output-console"></div>
-            </div>
-          </section>
-        </section>
+          </div>
+        </div>
       </main>
     </div>
 
+    <!-- Hidden logic state variables that the app.js looks for -->
+    <div id="hiddenState" class="hidden-logic">
+      <div id="rewardEstimateLabel"></div>
+      <div id="codingModuleTitle"></div>
+      <div id="difficultyLabel"></div>
+      <div id="moduleCompletionLabel"></div>
+      <div id="completionStateLabel"></div>
+      <div id="networkValue"></div>
+      <div id="rewardBalanceValue"></div>
+      <button id="testModuleButton"></button>
+      <div id="codingScoreValue"></div>
+      <ul id="testCasePreview"></ul>
+      <ul id="functionSignatureList"></ul>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
     <script src="app.js"></script>
+    <!-- Set Monaco Theme directly for Remix IDE approximation -->
+    <script>
+      window.onload = () => {
+        setTimeout(() => {
+          if (window.monaco) {
+            monaco.editor.defineTheme('remixDark', {
+              base: 'vs-dark',
+              inherit: true,
+              rules: [],
+              colors: {
+                'editor.background': '#1E1E24',
+              }
+            });
+            monaco.editor.setTheme('remixDark');
+          }
+        }, 1500); // Give loader a second
+      };
+    </script>
   </body>
 </html>
