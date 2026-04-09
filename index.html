@@ -41,9 +41,7 @@
     /* removed black bounding lines */
     background: transparent;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     position: relative;
     /* box-shadow removed as per full width */
   }
@@ -51,7 +49,7 @@
   /* TOP HEADER */
   .header {
     display: grid;
-    grid-template-columns: 240px 1fr auto 240px;
+    grid-template-columns: 240px 1fr auto 280px;
     height: 60px;
     border-bottom: 1px solid var(--border-color);
     border-top: 1px solid var(--border-color);
@@ -67,7 +65,6 @@
     display: flex;
     align-items: center;
     padding: 0 24px;
-    border-right: 1px solid var(--border-color);
     background: #F4F2EB;
     text-transform: uppercase;
   }
@@ -96,14 +93,11 @@
   }
 
   .wallet-info {
-    border-left: 1px solid var(--border-color);
-    border-right: 1px solid var(--border-color);
     padding: 0 20px;
     display: flex;
     flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    justify-content: center;
+    align-items: center;
+    gap: 16px;
     font-size: 9px;
     text-transform: uppercase;
     font-weight: 700;
@@ -136,9 +130,7 @@
 
   .rewards-text {
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
   }
   .rewards-text .label { font-size: 8px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; }
   .rewards-text .value { font-size: 13px; font-weight: 800; color: var(--text-primary); }
@@ -177,9 +169,7 @@
   .hero-left {
     flex: 6.5;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
   }
 
   .kicker {
@@ -218,9 +208,7 @@
     border: none;
     padding: 16px 24px;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     justify-content: center;
     cursor: pointer;
     transition: background 0.2s;
@@ -234,9 +222,7 @@
   .hero-right {
     flex: 3.5;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     gap: 16px;
     padding-top: 12px;
   }
@@ -246,9 +232,7 @@
     border: 1px solid var(--border-color);
     padding: 16px 20px;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     justify-content: center;
     box-shadow: 2px 2px 0px rgba(0,0,0,0.03);
   }
@@ -289,9 +273,7 @@
     position: relative;
     padding: 24px;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     justify-content: center;
     gap: 10px;
     transform-style: preserve-3d;
@@ -318,11 +300,8 @@
   }
   .sub-grid-item {
     padding: 20px 24px;
-    border-right: 1px solid var(--border-color);
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     gap: 8px;
   }
   .sub-grid-item:last-child { border-right: none; }
@@ -336,12 +315,9 @@
     min-height: 400px;
   }
   .card-col {
-    border-right: 1px solid var(--border-color);
     padding: 0;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     box-sizing: border-box;
   }
   .card-col:last-child { border-right: none; }
@@ -386,9 +362,7 @@
   }
   .state-val {
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     gap: 8px;
   }
   .state-val .label { font-size: 8px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
@@ -399,16 +373,12 @@
     border: 1px solid var(--border-color);
     padding: 24px;
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     gap: 16px;
   }
   .state-row {
     display: flex;
-    flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+    flex-direction: column;
     gap: 6px;
   }
   .state-row .label { font-size: 9px; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; }
